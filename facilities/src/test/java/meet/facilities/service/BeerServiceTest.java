@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import meet.facilities.dto.Beer;
+import meet.facilities.dto.Location;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
 import meet.facilities.dto.Weather;
@@ -14,7 +15,11 @@ import meet.facilities.service.weather.WeatherService;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
+
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,14 +41,15 @@ public class BeerServiceTest {
     
     @Test
     public void calculateBeersOK() {
+        Weather weather = new Weather();
         Meet meet = getMeet();
         User user = getUser();
         int expectedBoxes = 5;
         int attendants = 10;
         int beersByBox = 6;
-        when(weatherService.getWeather(meet.getDate(), meet.getLocation())).
-                thenReturn(any());
-        when(beerCalculator.calculateBoxesOfBeers(any(), attendants, beersByBox)).
+        when(weatherService.getWeather(any(Date.class), any(Location.class))).
+                thenReturn(weather);
+        when(beerCalculator.calculateBoxesOfBeers(any(Meet.class), anyInt(), anyInt())).
                 thenReturn(expectedBoxes);
 
         Beer beer = beerService.calculateBeer(meet, user, beersByBox, attendants);
@@ -51,17 +57,40 @@ public class BeerServiceTest {
         assertEquals(expectedBoxes, beer.getAmountOfBoxes());
     }
 
+    @Test
+    public void calculateBeers_InvalidMeet() {
+        // TODO:
+    }
+
+    @Test
+    public void calculateBeers_InvalidUser() {
+        // TODO:
+    }
+
+    @Test
+    public void calculateBeers_InvalidCountOfAttendants() {
+        // TODO:
+    }
+
+    @Test
+    public void calculateBeers_InvalidCountOfBeersInBox() {
+        // TODO:
+    }
+
     private User getUser() {
-        return null;
+        User user = new User();
+        user.setEmail("vero@gmail.com");
+        return user;
     }
 
     private Meet getMeet() {
-        return null;
-    }
+        Location location = new Location();
+        location.setCity("Mendoza");
+        location.setCountry("Argentina");
 
-    private Weather getWeather(int maxTemp) {
-        Weather weather = new Weather();
-        weather.setMaxTemp(maxTemp);
-        return weather;
+        Meet meet = new Meet();
+        meet.setDate(new Date());
+        meet.setLocation(location);
+        return meet;
     }
 }
