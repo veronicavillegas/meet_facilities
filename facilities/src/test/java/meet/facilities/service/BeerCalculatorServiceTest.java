@@ -1,4 +1,5 @@
 package meet.facilities.service;
+
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -10,6 +11,7 @@ import meet.facilities.dto.Location;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
 import meet.facilities.dto.Weather;
+import meet.facilities.service.beer.BeerCalculator;
 import meet.facilities.service.weather.WeatherService;
 import meet.facilities.util.Constant;
 

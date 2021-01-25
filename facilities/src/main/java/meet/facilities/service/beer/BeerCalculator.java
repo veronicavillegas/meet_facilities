@@ -1,4 +1,4 @@
-package meet.facilities.service;
+package meet.facilities.service.beer;
 
 import org.springframework.stereotype.Service;
 

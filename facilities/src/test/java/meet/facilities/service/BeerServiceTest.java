@@ -11,6 +11,8 @@ import meet.facilities.dto.Location;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
 import meet.facilities.dto.Weather;
+import meet.facilities.service.beer.BeerCalculator;
+import meet.facilities.service.beer.BeerService;
 import meet.facilities.service.weather.WeatherService;
 
 import static org.junit.Assert.assertEquals;
@@ -47,7 +49,7 @@ public class BeerServiceTest {
         int expectedBoxes = 5;
         int attendants = 10;
         int beersByBox = 6;
-        when(weatherService.getWeather(any(Date.class), any(Location.class))).
+        when(weatherService.getWeather(any(), any())).
                 thenReturn(weather);
         when(beerCalculator.calculateBoxesOfBeers(any(Meet.class), anyInt(), anyInt())).
                 thenReturn(expectedBoxes);

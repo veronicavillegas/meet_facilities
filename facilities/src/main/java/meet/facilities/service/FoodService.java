@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import meet.facilities.dto.Beer;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
+import meet.facilities.service.beer.BeerService;
 
 @Service
 public class FoodService {
