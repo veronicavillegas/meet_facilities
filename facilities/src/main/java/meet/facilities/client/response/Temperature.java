@@ -1,4 +1,7 @@
-package meet.facilities.dto;
+package meet.facilities.client.response;
+
+import com.google.api.client.util.Key;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -12,8 +15,7 @@ import lombok.experimental.Builder;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class Weather {
-    private int minTemp;
-    private int maxTemp;
-    private java.util.Date Date;
+public class Temperature {
+    @Key
+    private int temp_max;
 }

@@ -1,5 +1,7 @@
 package meet.facilities.service.beer;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Service;
 
 import meet.facilities.dto.Meet;
@@ -15,7 +17,7 @@ public class BeerCalculator {
         this.weatherService = weatherService;
     }
 
-	public int calculateBoxesOfBeers(Meet meet, int beersByBox, int attendants) {
+    public int calculateBoxesOfBeers(Meet meet, int beersByBox, int attendants) throws IOException {
         Weather weather = weatherService.getWeather(meet.getDate(), meet.getLocation());
 
         if (isItCold(weather)) {

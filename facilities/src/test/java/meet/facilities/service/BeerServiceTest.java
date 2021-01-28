@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.junit.Before;
@@ -40,9 +41,9 @@ public class BeerServiceTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
-    public void calculateBeersOK() {
+    public void calculateBeersOK() throws IOException {
         Weather weather = new Weather();
         Meet meet = getMeet();
         User user = getUser();

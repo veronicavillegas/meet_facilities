@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.junit.Before;
@@ -40,7 +41,7 @@ public class BeerCalculatorServiceTest {
     }
 
     @Test
-    public void calculateBeers_coldDay() {
+    public void calculateBeers_coldDay() throws IOException {
         Meet meet = getMeet();
         int beersByBox = 6;
         int attendants = 10;
@@ -56,7 +57,7 @@ public class BeerCalculatorServiceTest {
     }
 
     @Test
-    public void calculateBeers_hotDay() {
+    public void calculateBeers_hotDay() throws IOException {
         Meet meet = getMeet();
         int beersByBox = 6;
         int attendants = 10;
@@ -72,7 +73,7 @@ public class BeerCalculatorServiceTest {
     }
 
     @Test
-    public void calculateBeers_warmDay() {
+    public void calculateBeers_warmDay() throws IOException {
         Meet meet = getMeet();
         int beersByBox = 6;
         int attendants = 10;
