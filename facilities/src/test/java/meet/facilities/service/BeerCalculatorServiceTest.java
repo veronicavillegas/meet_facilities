@@ -11,6 +11,8 @@ import meet.facilities.dto.Location;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
 import meet.facilities.dto.Weather;
+import meet.facilities.exception.InvalidInputDataException;
+import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.service.beer.BeerCalculator;
 import meet.facilities.service.weather.WeatherService;
 import meet.facilities.util.Constant;
@@ -41,7 +43,7 @@ public class BeerCalculatorServiceTest {
     }
 
     @Test
-    public void calculateBeers_coldDay() throws IOException {
+    public void calculateBeers_coldDay() throws IOException, NotFoundWeatherException, InvalidInputDataException {
         Meet meet = getMeet();
         int beersByBox = 6;
         int attendants = 10;
@@ -57,7 +59,7 @@ public class BeerCalculatorServiceTest {
     }
 
     @Test
-    public void calculateBeers_hotDay() throws IOException {
+    public void calculateBeers_hotDay() throws IOException, NotFoundWeatherException, InvalidInputDataException {
         Meet meet = getMeet();
         int beersByBox = 6;
         int attendants = 10;
@@ -73,7 +75,7 @@ public class BeerCalculatorServiceTest {
     }
 
     @Test
-    public void calculateBeers_warmDay() throws IOException {
+    public void calculateBeers_warmDay() throws IOException, NotFoundWeatherException, InvalidInputDataException {
         Meet meet = getMeet();
         int beersByBox = 6;
         int attendants = 10;

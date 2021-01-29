@@ -11,6 +11,8 @@ import meet.facilities.dto.Location;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
 import meet.facilities.dto.Weather;
+import meet.facilities.exception.InvalidInputDataException;
+import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.service.beer.BeerCalculator;
 import meet.facilities.service.beer.BeerService;
 import meet.facilities.service.weather.WeatherService;
@@ -43,7 +45,7 @@ public class BeerServiceTest {
     }
 
     @Test
-    public void calculateBeersOK() throws IOException {
+    public void calculateBeersOK() throws IOException, NotFoundWeatherException, InvalidInputDataException {
         Weather weather = new Weather();
         Meet meet = getMeet();
         User user = getUser();

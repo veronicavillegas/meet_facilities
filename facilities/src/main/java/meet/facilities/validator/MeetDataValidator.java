@@ -1,8 +1,11 @@
 package meet.facilities.validator;
 
+import org.springframework.stereotype.Service;
+
 import meet.facilities.dto.Meet;
 import meet.facilities.exception.InvalidInputDataException;
 
+@Service
 public class MeetDataValidator extends Validator {
 
     public void validateMeet(Meet meet) throws InvalidInputDataException {

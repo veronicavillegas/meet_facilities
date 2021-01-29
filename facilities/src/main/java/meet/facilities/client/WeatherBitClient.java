@@ -34,7 +34,7 @@ public class WeatherBitClient {
 
     // TODO: HISTRIX
     public Forecast getForecast(Location location) throws IOException {
-        String url = "https://community-open-weather-map.p.rapidapi.com/forecast?";
+        String url = "https://community-open-weather-map.p.rapidapi.com/forecast?units=metric";
         String query = "q=" + location.getCity() + "," + location.getCountry();
 
         HttpRequest request = getRequest(url+query);
