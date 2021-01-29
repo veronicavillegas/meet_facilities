@@ -26,14 +26,28 @@ public class WeatherService {
 			throws IOException, NotFoundWeatherException, InvalidInputDataException {
 		weatherDataValidator.validateDate(date);
 		weatherDataValidator.validateLocation(location);
-		List<Weather> weatherList = weatherManager.getWeather(location);		
-		return getWeatherOfDate(weatherList, date);
+		List<Weather> weatherList = weatherManager.getWeather(location);
+		Date dateToFind = getDateToFind(date);
+		return getWeatherOfDate(weatherList, dateToFind);
+	}
+
+	private Date getDateToFind(Date date) {
+		Date dateToFind = date;
+		dateToFind.setMinutes(0);
+		dateToFind.setSeconds(0);
+
+		if (date.getHours() < 13) {
+			dateToFind.setHours(12);
+		} else {
+			dateToFind.setHours(15);
+		}
+		return dateToFind;
 	}
 
 	private Weather getWeatherOfDate(List<Weather> weatherList, Date date) throws NotFoundWeatherException {
 		if (weatherList != null && weatherList.size() > 0) {
 			for(Weather weather : weatherList) {
-				if(weather.getDate() == date) {
+				if(weather.getDate().compareTo(date) == 0) {
 					return weather;
 				}
 			}
@@ -41,4 +55,6 @@ public class WeatherService {
 		
 		throw new NotFoundWeatherException("Forecast not found for given date");
 	}
+
+	
 }

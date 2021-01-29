@@ -50,7 +50,7 @@ public class WeatherManager {
             weather.setMaxTemp(item.getMain().getTemp_max());
             Date date;
             try {
-                date = new SimpleDateFormat("yyyy-mm-dd").parse(item.getDt_txt());
+                date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(item.getDt_txt());
             } catch (ParseException e) {
                 return;
             }

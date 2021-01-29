@@ -33,7 +33,7 @@ public class WeatherController {
     {
         try {
             Location location = getLocation(city, country);
-            Date forestDate = new SimpleDateFormat("yyyy-mm-dd").parse(date);
+            Date forestDate = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(date);
             weatherService.getWeather(forestDate, location);
         } catch(IOException | ParseException ex) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
