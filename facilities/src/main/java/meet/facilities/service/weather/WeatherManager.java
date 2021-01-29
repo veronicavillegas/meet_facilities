@@ -48,9 +48,10 @@ public class WeatherManager {
         forecast.getList().forEach(item -> {
             Weather weather = new Weather();
             weather.setMaxTemp(item.getMain().getTemp_max());
+            weather.setMinTemp(item.getMain().getTemp_min());
             Date date;
             try {
-                date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(item.getDt_txt());
+                date = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(item.getDt_txt());
             } catch (ParseException e) {
                 return;
             }
