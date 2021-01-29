@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.Weather;
+import meet.facilities.exception.InvalidInputDataException;
+import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.service.weather.WeatherService;
 import meet.facilities.util.Constant;
 
@@ -17,7 +19,8 @@ public class BeerCalculator {
         this.weatherService = weatherService;
     }
 
-    public int calculateBoxesOfBeers(Meet meet, int beersByBox, int attendants) throws IOException {
+    public int calculateBoxesOfBeers(Meet meet, int beersByBox, int attendants)
+            throws IOException, NotFoundWeatherException, InvalidInputDataException {
         Weather weather = weatherService.getWeather(meet.getDate(), meet.getLocation());
 
         if (isItCold(weather)) {

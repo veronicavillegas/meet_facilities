@@ -18,4 +18,6 @@ import lombok.experimental.Builder;
 public class Weather {
     @Key
     private Temperature main;
+    @Key
+    private String dt_txt;
 }

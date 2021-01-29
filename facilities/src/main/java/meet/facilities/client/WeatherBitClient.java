@@ -15,27 +15,27 @@ import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.Key;
 
+import org.apache.http.HttpStatus;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.stereotype.Component;
 
 import meet.facilities.client.response.Forecast;
 import meet.facilities.dto.Location;
 import meet.facilities.dto.Weather;
-import meet.facilities.util.ParameterStringBuilder;
 
 @Component
 public class WeatherBitClient {
     private static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static JsonFactory JSON_FACTORY = new JacksonFactory();
 
-    private final int CONNECTION_TIMEOUT = 400;
-    private final int READ_TIMEOUT = 400;
+    private final int CONNECTION_TIMEOUT = 8000;
+    private final int READ_TIMEOUT = 8000;
     private final int NUMBER_OF_RETRIES = 3;
 
     // TODO: HISTRIX
     public Forecast getForecast(Location location) throws IOException {
-        String query = "q=san%20francisco%2Cus";
         String url = "https://community-open-weather-map.p.rapidapi.com/forecast?";
+        String query = "q=" + location.getCity() + "," + location.getCountry();
 
         HttpRequest request = getRequest(url+query);
 
@@ -43,7 +43,8 @@ public class WeatherBitClient {
 
         HttpResponse response = request.execute();
         
-        if (response.getStatusCode() != 200) {
+        if (response.getStatusCode() != HttpStatus.SC_OK) {
+            // TODO: Analizar si es correcto devolver null
             return null;
         } else {
             return (Forecast)response.parseAs(Forecast.class);
@@ -62,16 +63,15 @@ public class WeatherBitClient {
         HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(
                 (HttpRequest request) -> {
                 request.setParser(new JsonObjectParser(JSON_FACTORY));
-                request.setNumberOfRetries(NUMBER_OF_RETRIES);
-                request.setConnectTimeout(CONNECTION_TIMEOUT);
-                request.setReadTimeout(READ_TIMEOUT);
                 }); 
 
         GenericUrl url = new GenericUrl(urlString);
 
         HttpRequest request = requestFactory.buildGetRequest(url);
 
-        
+        request.setNumberOfRetries(NUMBER_OF_RETRIES);
+        request.setConnectTimeout(CONNECTION_TIMEOUT);
+        request.setReadTimeout(READ_TIMEOUT);
 
         return request;
     }

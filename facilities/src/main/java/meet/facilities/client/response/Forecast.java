@@ -21,6 +21,4 @@ import lombok.experimental.Builder;
 public class Forecast extends GenericJson {
     @Key
     private List<Weather> list;
-    @Key
-    private String dt_txt;
 }

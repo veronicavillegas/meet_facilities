@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import meet.facilities.dto.Beer;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
+import meet.facilities.exception.InvalidInputDataException;
+import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.service.beer.BeerService;
 
 @Service
@@ -19,7 +21,8 @@ public class FoodService {
 		this.beerService = beerService;
 	}
 
-	public Beer calculateBeer(Meet meet, User user, int beersByBox, int attendants) throws IOException {
+	public Beer calculateBeer(Meet meet, User user, int beersByBox, int attendants)
+			throws IOException, InvalidInputDataException, NotFoundWeatherException {
 		//Calcular las cajas de cerveza
 		return beerService.calculateBeer(meet, user, beersByBox, attendants);
 	}

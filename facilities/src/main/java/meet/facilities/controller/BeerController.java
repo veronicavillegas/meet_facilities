@@ -15,6 +15,9 @@ import meet.facilities.client.WeatherBitClient;
 import meet.facilities.dto.Location;
 import meet.facilities.dto.Meet;
 import meet.facilities.dto.User;
+import meet.facilities.exception.ApiException;
+import meet.facilities.exception.InvalidInputDataException;
+import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.model.Beer;
 import meet.facilities.service.FoodService;
 
@@ -23,24 +26,30 @@ import meet.facilities.service.FoodService;
 public class BeerController {
     FoodService foodService;
     ModelMapper modelMapper;
-    WeatherBitClient wbc;
 
     @Autowired
-    public BeerController(FoodService foodService, ModelMapper modelMapper, WeatherBitClient wbc) {
+    public BeerController(FoodService foodService, ModelMapper modelMapper) {
         this.foodService = foodService;
         this.modelMapper = modelMapper;
-        this.wbc = wbc;
     }
 
     @GetMapping("/beers")
     public ResponseEntity<Beer> calculateBeer(@RequestParam String emailUser, @RequestParam String date,
             @RequestParam int attendants, @RequestParam String city, @RequestParam String country,
-            @RequestParam int beersByBox) throws IOException {
+            @RequestParam int beersByBox) {
         // Creo dto de user, meet, y whether
         // Llamo al servicio para calcular la cantidad de cervezas
         Meet meet = getMeet(date, attendants, city, country);
         User user = getUser(emailUser);
-        meet.facilities.dto.Beer beer = foodService.calculateBeer(meet, user, beersByBox, attendants);
+        meet.facilities.dto.Beer beer;
+
+        try {
+            beer = foodService.calculateBeer(meet, user, beersByBox, attendants);
+        } catch(IOException ex) {
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        } catch(NotFoundWeatherException | InvalidInputDataException ex) {
+            throw new ApiException(HttpStatus.BAD_REQUEST.getReasonPhrase(), ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        }
 
         return new ResponseEntity<>(modelMapper.map(beer, Beer.class), HttpStatus.OK);
     }
