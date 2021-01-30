@@ -52,7 +52,7 @@ public class BeerServiceTest {
 
     @Test
     public void calculateBeersOK()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException  {
         String emailUser = "vero@tets.com";
         String date = "2020-02-01";
         String city = "mendoza";
@@ -69,18 +69,15 @@ public class BeerServiceTest {
         assertEquals(expectedBoxes, beer.getAmountOfBoxes());
     }
     
-    @ParameterizedTest
-    @CsvSource({
-        ", 2020-01-30, 1, mendoza, ar, 6, Given meet data is not valid"
-    })
-    public void calculateBeers_InvalidMeetData() {
-        String emailUser = "vero@test.com"; 
-        String  date = "2020-01-30"; 
+    @Test
+    public void calculateBeers_invalidEmail() {
+        String emailUser = ""; 
+        String date = "2020-01-30 08:00:00"; 
         int attendants = 2;
         String city = "mendoza";
         String country = "ar"; 
         int beersByBox = 6; 
-        String expectedMessage = "";
+        String expectedMessage = "Given email user is not valid";
 
         try {
             beerService.calculateBeer(emailUser, date, attendants, city, country, beersByBox);

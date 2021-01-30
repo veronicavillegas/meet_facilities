@@ -31,12 +31,15 @@ public class BeerService {
         this.meetDataValidator = meetDataValidator;
     }
 
-    public Beer calculateBeer(String emailUser, String date, int attendants, String city, String country, int beersByBox)
-            throws IOException, InvalidInputDataException, NotFoundWeatherException,  {
-        Helper.parseToDate(date);
-        validateData(emailUser, date, attendants, city, country, beersByBox);
+    public Beer calculateBeer(String emailUser, String givenDate, int attendants, String city, String country, int beersByBox)
+            throws IOException, InvalidInputDataException, NotFoundWeatherException  {
         
-        Meet meet = getMeet(date, attendants, city, country);
+        Date date = Helper.parseToDate(givenDate);
+        Location location = getLocation(city, country);
+
+        validateData(emailUser, date, attendants, location, beersByBox);
+        
+        Meet meet = getMeet(date, attendants, location);
 
         int boxes = beerCalculator.calculateBoxesOfBeers(meet, beersByBox, attendants);
         
@@ -45,11 +48,12 @@ public class BeerService {
         return beer;
     }
 
-    private void validateData(String emailUser, String date, int attendants, String city, String country, int beersByBox) throws InvalidInputDataException {
+    private void validateData(String emailUser, Date date, int attendants, Location location, int beersByBox) throws InvalidInputDataException {
         meetDataValidator.validateUser(emailUser);
         meetDataValidator.validateDate(date);
         meetDataValidator.validateBeersByBox(beersByBox);
         meetDataValidator.validateAttendants(attendants);
+        meetDataValidator.validateLocation(location);
     }
 
     private Beer getBeer(int boxes) {
@@ -58,13 +62,10 @@ public class BeerService {
         return beer;
     }
 
-    private Meet getMeet(String date, int attendants, String city, String country) throws  {
-        Location location = getLocation(city, country);
-        Date forestDate = new SimpleDateFormat(Constant.DATE_FORMAT).parse(date);
-        
+    private Meet getMeet(Date date, int attendants, Location location)  {        
         Meet meet = new Meet();
         meet.setLocation(location);
-        meet.setDate(forestDate);
+        meet.setDate(date);
 
         return meet;
     }

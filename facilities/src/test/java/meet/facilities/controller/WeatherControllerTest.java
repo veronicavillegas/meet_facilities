@@ -40,7 +40,7 @@ public class WeatherControllerTest {
 
     @Test
     public void getWeather_Ok()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
@@ -57,7 +57,7 @@ public class WeatherControllerTest {
 
     @Test
     public void getWeather_NotFoundWeatherException()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
@@ -76,7 +76,7 @@ public class WeatherControllerTest {
 
     @Test(expected = ApiException.class)
     public void getWeather_IOException()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
@@ -85,20 +85,6 @@ public class WeatherControllerTest {
 
         weatherController.getWeather(country, city, date);
     }
-
-    @Test(expected = ApiException.class)
-    public void getWeather_()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
-        String country = "ar";
-        String city = "Mendoza";
-        String date = "2020-01-30 08:00:00";
-
-        when(weatherService.getWeather(country, city, date)).thenThrow(new ("", 0));
-
-        weatherController.getWeather(country, city, date);
-    }
-
-
 
     private Weather getWeather() {
         Weather weather = new Weather();

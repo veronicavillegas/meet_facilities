@@ -13,9 +13,11 @@ public abstract class Validator {
         }
     }
 
-    public void validateUser(String emailUser) {
+    public void validateUser(String emailUser) throws InvalidInputDataException {
         //TODO: Mockear api rest para validar user
-        return;
+        if (emailUser == null || emailUser.isEmpty()) {
+            throw new InvalidInputDataException("Given email user is not valid");
+        }
     }
 
 

@@ -12,6 +12,7 @@ import meet.facilities.dto.Weather;
 import meet.facilities.exception.InvalidInputDataException;
 import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.util.Constant;
+import meet.facilities.util.Helper;
 import meet.facilities.validator.WeatherDataValidator;
 
 @Service
@@ -25,8 +26,8 @@ public class WeatherService {
 	}
 
 	public Weather getWeather(String country, String city, String givenDate)
-			throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
-				Date date = new SimpleDateFormat(Constant.DATE_FORMAT).parse(givenDate);
+			throws IOException, NotFoundWeatherException, InvalidInputDataException  {
+				Date date = Helper.parseToDate(givenDate);
 				Location location = getLocation(city, country);
 
 				weatherDataValidator.validateDate(date);

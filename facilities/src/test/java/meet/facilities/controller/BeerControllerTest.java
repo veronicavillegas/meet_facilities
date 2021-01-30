@@ -44,7 +44,7 @@ public class BeerControllerTest {
 
     @Test
     public void calculateBeer_ok()
-            throws IOException, InvalidInputDataException, NotFoundWeatherException,  {
+            throws IOException, InvalidInputDataException, NotFoundWeatherException  {
         String emailUser = "vero@test.com";
         String date = "2020-01-20 08:05:05";
         int attendants = 1;
@@ -64,7 +64,7 @@ public class BeerControllerTest {
 
     @Test
     public void calculateBeer_inputException() 
-        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
+        throws IOException, NotFoundWeatherException, InvalidInputDataException {
             String exceptionMessage = "invalid input";
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
@@ -80,7 +80,7 @@ public class BeerControllerTest {
 
     @Test(expected = ApiException.class)
     public void calculateBeer_IOException() 
-        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
+        throws IOException, NotFoundWeatherException, InvalidInputDataException {
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
                 thenThrow(new IOException());
@@ -90,20 +90,10 @@ public class BeerControllerTest {
 
     @Test(expected = ApiException.class)
     public void calculateBeer_NotFoundWeatherException() 
-        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
+        throws IOException, NotFoundWeatherException, InvalidInputDataException {
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
                 thenThrow(new NotFoundWeatherException(""));
-            
-            beerController.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt());
-    }
-
-    @Test(expected = ApiException.class)
-    public void calculateBeer_() 
-        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
-
-            when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
-                thenThrow(new ("",0));
             
             beerController.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt());
     }
