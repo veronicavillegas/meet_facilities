@@ -1,8 +1,7 @@
 package meet.facilities.service;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,37 +26,8 @@ public class FoodService {
 	}
 
 	public Beer calculateBeer(String emailUser, String date, int attendants, String city, String country, int beersByBox)
-			throws IOException, InvalidInputDataException, NotFoundWeatherException, ParseException {
-		User user = getUser(emailUser);
-		Meet meet = getMeet(date, attendants, city, country);
-		return beerService.calculateBeer(meet, user, beersByBox, attendants);
+			throws IOException, InvalidInputDataException, NotFoundWeatherException {
+		return beerService.calculateBeer(emailUser, date, attendants, city, country, beersByBox);
 	}
-
-
-    private User getUser(String emailUser) {
-        User user = new User();
-        user.setEmail(emailUser);
-
-        return user;
-    }
-
-    private Meet getMeet(String date, int attendants, String city, String country) throws ParseException {
-        Location location = getLocation(city, country);
-        Date forestDate = new SimpleDateFormat(Constant.DATE_FORMAT).parse(date);
-        
-        Meet meet = new Meet();
-        meet.setLocation(location);
-        meet.setDate(forestDate);
-
-        return meet;
-    }
-
-    private Location getLocation(String city, String country) {
-        Location location = new Location();
-        location.setCity(city);
-        location.setCountry(country);
-
-        return location;
-    }
-    
+  
 }

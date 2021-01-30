@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +40,7 @@ public class WeatherControllerTest {
 
     @Test
     public void getWeather_Ok()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException, ParseException {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
@@ -58,7 +57,7 @@ public class WeatherControllerTest {
 
     @Test
     public void getWeather_NotFoundWeatherException()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException, ParseException {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
@@ -77,7 +76,7 @@ public class WeatherControllerTest {
 
     @Test(expected = ApiException.class)
     public void getWeather_IOException()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException, ParseException {
+            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
@@ -88,13 +87,13 @@ public class WeatherControllerTest {
     }
 
     @Test(expected = ApiException.class)
-    public void getWeather_ParseException()
-            throws IOException, NotFoundWeatherException, InvalidInputDataException, ParseException {
+    public void getWeather_()
+            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
         String country = "ar";
         String city = "Mendoza";
         String date = "2020-01-30 08:00:00";
 
-        when(weatherService.getWeather(country, city, date)).thenThrow(new ParseException("", 0));
+        when(weatherService.getWeather(country, city, date)).thenThrow(new ("", 0));
 
         weatherController.getWeather(country, city, date);
     }

@@ -1,8 +1,7 @@
 package meet.facilities.service.weather;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class WeatherService {
 	}
 
 	public Weather getWeather(String country, String city, String givenDate)
-			throws IOException, NotFoundWeatherException, InvalidInputDataException, ParseException {
+			throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
 				Date date = new SimpleDateFormat(Constant.DATE_FORMAT).parse(givenDate);
 				Location location = getLocation(city, country);
 

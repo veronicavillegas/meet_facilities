@@ -1,8 +1,7 @@
 package meet.facilities.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -48,7 +47,7 @@ public class BeerController {
         } catch (IOException ex) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR.value());
-        } catch (NotFoundWeatherException | InvalidInputDataException | ParseException ex) {
+        } catch (NotFoundWeatherException | InvalidInputDataException ex) {
             throw new ApiException(HttpStatus.BAD_REQUEST.getReasonPhrase(), ex.getMessage(),
                     HttpStatus.BAD_REQUEST.value());
         }

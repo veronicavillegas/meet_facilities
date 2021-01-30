@@ -31,6 +31,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BeerServiceTest {
@@ -43,63 +44,49 @@ public class BeerServiceTest {
     BeerCalculator beerCalculator;
     @Spy
     MeetDataValidator meetDataValidator;
-    
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void calculateBeersOK() throws IOException, NotFoundWeatherException, InvalidInputDataException {
-        Weather weather = new Weather();
-        Meet meet = getMeet();
-        User user = getUser();
+    public void calculateBeersOK()
+            throws IOException, NotFoundWeatherException, InvalidInputDataException,  {
+        String emailUser = "vero@tets.com";
+        String date = "2020-02-01";
+        String city = "mendoza";
+        String country = "ar";
         int expectedBoxes = 5;
         int attendants = 10;
         int beersByBox = 6;
-        when(weatherService.getWeather(any(), any())).
-                thenReturn(weather);
+        
         when(beerCalculator.calculateBoxesOfBeers(any(Meet.class), anyInt(), anyInt())).
                 thenReturn(expectedBoxes);
 
-        Beer beer = beerService.calculateBeer(meet, user, beersByBox, attendants);
+        Beer beer = beerService.calculateBeer(emailUser, date, attendants, city, country, beersByBox);
 
         assertEquals(expectedBoxes, beer.getAmountOfBoxes());
     }
-
+    
     @ParameterizedTest
     @CsvSource({
-
+        ", 2020-01-30, 1, mendoza, ar, 6, Given meet data is not valid"
     })
-    public void calculateBeers_InvalidMeet(meet, user, attendants, beersByBox) {
-        Meet meet = null;
-        User user = getUser();
-        int attendants = 10;
-        int beersByBox = 6;
+    public void calculateBeers_InvalidMeetData() {
+        String emailUser = "vero@test.com"; 
+        String  date = "2020-01-30"; 
+        int attendants = 2;
+        String city = "mendoza";
+        String country = "ar"; 
+        int beersByBox = 6; 
+        String expectedMessage = "";
 
         try {
-            beerService.calculateBeer(meet, user, beersByBox, attendants);
+            beerService.calculateBeer(emailUser, date, attendants, city, country, beersByBox);
         } catch (Exception ex) {
-            assertEquals("Given meet data is not valid", ex.getMessage());
+            assertEquals(expectedMessage, ex.getMessage());
             assertEquals(ex.getClass(), InvalidInputDataException.class);
         }
-    }
-
-
-    private User getUser() {
-        User user = new User();
-        user.setEmail("vero@gmail.com");
-        return user;
-    }
-
-    private Meet getMeet() {
-        Location location = new Location();
-        location.setCity("Mendoza");
-        location.setCountry("Argentina");
-
-        Meet meet = new Meet();
-        meet.setDate(new Date());
-        meet.setLocation(location);
-        return meet;
     }
 }

@@ -1,8 +1,7 @@
 package meet.facilities.service.weather;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +52,7 @@ public class WeatherManager {
             Date date;
             try {
                 date = Helper.parseToDate(item.getDt_txt());
-            } catch (ParseException e) {
+            } catch ( e) {
                 return;
             }
             weather.setDate(date);

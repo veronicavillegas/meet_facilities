@@ -27,7 +27,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BeerControllerTest {
@@ -45,7 +44,7 @@ public class BeerControllerTest {
 
     @Test
     public void calculateBeer_ok()
-            throws IOException, InvalidInputDataException, NotFoundWeatherException, ParseException {
+            throws IOException, InvalidInputDataException, NotFoundWeatherException,  {
         String emailUser = "vero@test.com";
         String date = "2020-01-20 08:05:05";
         int attendants = 1;
@@ -65,7 +64,7 @@ public class BeerControllerTest {
 
     @Test
     public void calculateBeer_inputException() 
-        throws IOException, NotFoundWeatherException, ParseException, InvalidInputDataException {
+        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
             String exceptionMessage = "invalid input";
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
@@ -81,7 +80,7 @@ public class BeerControllerTest {
 
     @Test(expected = ApiException.class)
     public void calculateBeer_IOException() 
-        throws IOException, NotFoundWeatherException, ParseException, InvalidInputDataException {
+        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
                 thenThrow(new IOException());
@@ -91,7 +90,7 @@ public class BeerControllerTest {
 
     @Test(expected = ApiException.class)
     public void calculateBeer_NotFoundWeatherException() 
-        throws IOException, NotFoundWeatherException, ParseException, InvalidInputDataException {
+        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
                 thenThrow(new NotFoundWeatherException(""));
@@ -100,11 +99,11 @@ public class BeerControllerTest {
     }
 
     @Test(expected = ApiException.class)
-    public void calculateBeer_ParseException() 
-        throws IOException, NotFoundWeatherException, ParseException, InvalidInputDataException {
+    public void calculateBeer_() 
+        throws IOException, NotFoundWeatherException, , InvalidInputDataException {
 
             when(foodService.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt())).
-                thenThrow(new ParseException("",0));
+                thenThrow(new ("",0));
             
             beerController.calculateBeer(anyString(), anyString(), anyInt(), anyString(), anyString(), anyInt());
     }

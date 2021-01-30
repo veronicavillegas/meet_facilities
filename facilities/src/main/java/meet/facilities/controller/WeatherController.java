@@ -1,9 +1,6 @@
 package meet.facilities.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +36,7 @@ public class WeatherController {
         try {
             meet.facilities.dto.Weather weather = weatherService.getWeather(country, city, date);
             return new ResponseEntity<>(modelMapper.map(weather, Weather.class), HttpStatus.OK);
-        } catch(IOException | ParseException ex) {
+        } catch(IOException ex) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         } catch(NotFoundWeatherException | InvalidInputDataException ex) {
             throw new ApiException(HttpStatus.BAD_REQUEST.getReasonPhrase(), ex.getMessage(), HttpStatus.BAD_REQUEST.value());

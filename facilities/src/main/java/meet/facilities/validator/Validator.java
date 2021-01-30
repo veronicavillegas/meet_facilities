@@ -13,7 +13,7 @@ public abstract class Validator {
         }
     }
 
-    public void validateUser(User user) {
+    public void validateUser(String emailUser) {
         //TODO: Mockear api rest para validar user
         return;
     }
