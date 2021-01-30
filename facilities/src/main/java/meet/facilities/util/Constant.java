@@ -16,4 +16,10 @@ public final class Constant {
 	public static final String INVALID_DATE_MESSAGE = "Given date is not valid";
 	public static final String INVALID_ATTENDANTS_MESSAGE = "Given attendants amount is not valid";
 	public static final String INVALID_BEERS_BY_BOX_MESSAGE = "Given beers by bos is not valid";
+	public static final String ADMIN_TOKEN = "admin_admin";
+	public static final String USER_TOKEN = "user";
+	public static final String AUTH_HEADER = "x-auth-token";
+	public static final String INVALID_TOKEN = "Invalid token";
+	public static final String MEET_BEER_URL = "/meetup/beers";
+	public static final String CALCULATE_BEER_METHOD = "calculateBeer";
 }
