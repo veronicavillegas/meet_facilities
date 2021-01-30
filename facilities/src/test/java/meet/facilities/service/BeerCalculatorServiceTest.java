@@ -92,6 +92,22 @@ public class BeerCalculatorServiceTest {
         assertEquals(expectedBoxes, actualBoxes);
     }
 
+    @Test
+    public void calculateBeers_noWeather() throws IOException, NotFoundWeatherException, InvalidInputDataException {
+        Meet meet = getMeet();
+        int beersByBox = 6;
+        int attendants = 10;
+
+        when(weatherService.getWeather(any(), any())).thenReturn(null);
+
+        int actualBoxes = beerCalculator.calculateBoxesOfBeers(meet, beersByBox, attendants);
+
+        double boxes = (double)(attendants * Constant.BEERS_HOT_DAY) / beersByBox;
+        int expectedBoxes = (int)Math.ceil(boxes);
+        
+        assertEquals(expectedBoxes, actualBoxes);
+    }
+
     private Meet getMeet() {
         Location location = new Location();
         location.setCity("Mendoza");

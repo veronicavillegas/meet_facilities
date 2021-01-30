@@ -22,12 +22,18 @@ public class BeerCalculator {
     public int calculateBoxesOfBeers(Meet meet, int beersByBox, int attendants)
             throws IOException, NotFoundWeatherException, InvalidInputDataException {
         Weather weather = weatherService.getWeather(meet.getDate(), meet.getLocation());
-
-        if (isItCold(weather)) {
-            return getBoxes(Constant.BEERS_COLD_DAY, attendants, beersByBox);
-        } else if (isItWarm(weather)) {
-            return getBoxes(Constant.BEERS_WARM_DAY, attendants, beersByBox);
+        
+        // Si no me pude traer el pronóstico, calculo cervezas para un día de calor
+        if (weather != null) {
+            if (isItCold(weather)) {
+                return getBoxes(Constant.BEERS_COLD_DAY, attendants, beersByBox);
+            } else if (isItWarm(weather)) {
+                return getBoxes(Constant.BEERS_WARM_DAY, attendants, beersByBox);
+            } else {
+                return getBoxes(Constant.BEERS_HOT_DAY, attendants, beersByBox);
+            } 
         } else {
+            //Acá podría alertar algún monitor para indicar que hay problemas con la api del pronóstico
             return getBoxes(Constant.BEERS_HOT_DAY, attendants, beersByBox);
         }
     }

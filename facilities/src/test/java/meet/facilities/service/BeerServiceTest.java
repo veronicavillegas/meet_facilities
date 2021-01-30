@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import meet.facilities.dto.Beer;
@@ -16,6 +17,7 @@ import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.service.beer.BeerCalculator;
 import meet.facilities.service.beer.BeerService;
 import meet.facilities.service.weather.WeatherService;
+import meet.facilities.validator.MeetDataValidator;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,6 +30,7 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BeerServiceTest {
@@ -38,7 +41,9 @@ public class BeerServiceTest {
     WeatherService weatherService;
     @Mock
     BeerCalculator beerCalculator;
-
+    @Spy
+    MeetDataValidator meetDataValidator;
+    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -62,25 +67,24 @@ public class BeerServiceTest {
         assertEquals(expectedBoxes, beer.getAmountOfBoxes());
     }
 
-    @Test
-    public void calculateBeers_InvalidMeet() {
-        // TODO:
+    @ParameterizedTest
+    @CsvSource({
+
+    })
+    public void calculateBeers_InvalidMeet(meet, user, attendants, beersByBox) {
+        Meet meet = null;
+        User user = getUser();
+        int attendants = 10;
+        int beersByBox = 6;
+
+        try {
+            beerService.calculateBeer(meet, user, beersByBox, attendants);
+        } catch (Exception ex) {
+            assertEquals("Given meet data is not valid", ex.getMessage());
+            assertEquals(ex.getClass(), InvalidInputDataException.class);
+        }
     }
 
-    @Test
-    public void calculateBeers_InvalidUser() {
-        // TODO:
-    }
-
-    @Test
-    public void calculateBeers_InvalidCountOfAttendants() {
-        // TODO:
-    }
-
-    @Test
-    public void calculateBeers_InvalidCountOfBeersInBox() {
-        // TODO:
-    }
 
     private User getUser() {
         User user = new User();
