@@ -1,6 +1,8 @@
 package meet.facilities.service.weather;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import meet.facilities.dto.Location;
 import meet.facilities.dto.Weather;
 import meet.facilities.exception.InvalidInputDataException;
 import meet.facilities.exception.NotFoundWeatherException;
+import meet.facilities.util.Constant;
 import meet.facilities.validator.WeatherDataValidator;
 
 @Service
@@ -22,13 +25,17 @@ public class WeatherService {
 		this.weatherDataValidator = weatherDataValidator;
 	}
 
-	public Weather getWeather(Date date, Location location)
-			throws IOException, NotFoundWeatherException, InvalidInputDataException {
-		weatherDataValidator.validateDate(date);
-		weatherDataValidator.validateLocation(location);
-		List<Weather> weatherList = weatherManager.getWeather(location);
-		Date dateToFind = getDateToFind(date);
-		return getWeatherOfDate(weatherList, dateToFind);
+	public Weather getWeather(String country, String city, String givenDate)
+			throws IOException, NotFoundWeatherException, InvalidInputDataException, ParseException {
+				Date date = new SimpleDateFormat(Constant.DATE_FORMAT).parse(givenDate);
+				Location location = getLocation(city, country);
+
+				weatherDataValidator.validateDate(date);
+				weatherDataValidator.validateLocation(location);
+				List<Weather> weatherList = weatherManager.getWeather(location);
+				Date dateToFind = getDateToFind(date);
+
+				return getWeatherOfDate(weatherList, dateToFind);
 	}
 
 	private Date getDateToFind(Date date) {
@@ -56,5 +63,12 @@ public class WeatherService {
 		throw new NotFoundWeatherException("Forecast not found for given date");
 	}
 
+	private Location getLocation(String city, String country) {
+        Location location = new Location();
+        location.setCity(city);
+        location.setCountry(country);
+
+        return location;
+    }
 	
 }

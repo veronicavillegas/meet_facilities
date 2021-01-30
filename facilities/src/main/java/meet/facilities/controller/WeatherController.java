@@ -37,22 +37,12 @@ public class WeatherController {
     public ResponseEntity<Weather> getWeather(@RequestParam String country, @RequestParam String city, @RequestParam String date)
     {
         try {
-            Location location = getLocation(city, country);
-            Date forestDate = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(date);
-            meet.facilities.dto.Weather weather = weatherService.getWeather(forestDate, location);
+            meet.facilities.dto.Weather weather = weatherService.getWeather(country, city, date);
             return new ResponseEntity<>(modelMapper.map(weather, Weather.class), HttpStatus.OK);
         } catch(IOException | ParseException ex) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         } catch(NotFoundWeatherException | InvalidInputDataException ex) {
             throw new ApiException(HttpStatus.BAD_REQUEST.getReasonPhrase(), ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         }
-    }
-
-    private Location getLocation(String city, String country) {
-        Location location = new Location();
-        location.setCity(city);
-        location.setCountry(country);
-
-        return location;
     }
 }

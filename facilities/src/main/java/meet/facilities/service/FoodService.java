@@ -15,6 +15,7 @@ import meet.facilities.dto.User;
 import meet.facilities.exception.InvalidInputDataException;
 import meet.facilities.exception.NotFoundWeatherException;
 import meet.facilities.service.beer.BeerService;
+import meet.facilities.util.Constant;
 
 @Service
 public class FoodService {
@@ -42,7 +43,7 @@ public class FoodService {
 
     private Meet getMeet(String date, int attendants, String city, String country) throws ParseException {
         Location location = getLocation(city, country);
-        Date forestDate = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(date);
+        Date forestDate = new SimpleDateFormat(Constant.DATE_FORMAT).parse(date);
         
         Meet meet = new Meet();
         meet.setLocation(location);

@@ -51,7 +51,7 @@ public class WeatherManager {
             weather.setMinTemp(item.getMain().getTemp_min());
             Date date;
             try {
-                date = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(item.getDt_txt());
+                date = new SimpleDateFormat(Constant.DATE_FORMAT).parse(item.getDt_txt());
             } catch (ParseException e) {
                 return;
             }
