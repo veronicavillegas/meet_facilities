@@ -41,14 +41,10 @@ public class BeerController {
     public ResponseEntity<Beer> calculateBeer(@RequestParam String emailUser, @RequestParam String date,
             @RequestParam int attendants, @RequestParam String city, @RequestParam String country,
             @RequestParam int beersByBox) {
-        // Creo dto de user, meet, y whether
         // Llamo al servicio para calcular la cantidad de cervezas
-        User user = getUser(emailUser);
         meet.facilities.dto.Beer beer;
-
         try {
-            Meet meet = getMeet(date, attendants, city, country);
-            beer = foodService.calculateBeer(meet, user, beersByBox, attendants);
+            beer = foodService.calculateBeer(emailUser, date, attendants, city, country, beersByBox);
         } catch (IOException ex) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -58,32 +54,5 @@ public class BeerController {
         }
 
         return new ResponseEntity<>(modelMapper.map(beer, Beer.class), HttpStatus.OK);
-    }
-
-    private User getUser(String emailUser) {
-        User user = new User();
-        user.setEmail(emailUser);
-
-        return user;
-    }
-
-    private Meet getMeet(String date, int attendants, String city, String country) throws ParseException {
-        Location location = getLocation(city, country);
-        Date forestDate = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(date);
-        
-        Meet meet = new Meet();
-        meet.setLocation(location);
-        meet.setDate(forestDate);
-
-        return meet;
-    }
-
-    private Location getLocation(String city,
-    String country) {
-        Location location = new Location();
-        location.setCity(city);
-        location.setCountry(country);
-
-        return location;
     }
 }

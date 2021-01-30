@@ -69,9 +69,10 @@ public class BeerCalculatorServiceTest {
         when(weatherService.getWeather(meet.getDate(), meet.getLocation())).thenReturn(weather);
         
         int actualBoxes = beerCalculator.calculateBoxesOfBeers(meet, beersByBox, attendants);
-        int expectedBoxes = (int)Math.ceil((attendants * Constant.BEERS_HOT_DAY) / beersByBox);
         
-        assertEquals(expectedBoxes, actualBoxes);
+        double expectedBoxes = (double)((attendants * Constant.BEERS_HOT_DAY) / beersByBox);
+        
+        assertEquals((int)Math.ceil(expectedBoxes), actualBoxes);
     }
 
     @Test
