@@ -30,12 +30,17 @@ public class WeatherService {
 				Date date = new SimpleDateFormat(Constant.DATE_FORMAT).parse(givenDate);
 				Location location = getLocation(city, country);
 
-				weatherDataValidator.validateDate(date);
-				weatherDataValidator.validateLocation(location);
-				List<Weather> weatherList = weatherManager.getWeather(location);
-				Date dateToFind = getDateToFind(date);
+				return getWeather(date, location);
+	}
 
-				return getWeatherOfDate(weatherList, dateToFind);
+	public Weather getWeather(Date date, Location location) throws InvalidInputDataException, IOException,
+			NotFoundWeatherException {
+		weatherDataValidator.validateDate(date);
+		weatherDataValidator.validateLocation(location);
+		List<Weather> weatherList = weatherManager.getWeather(location);
+		Date dateToFind = getDateToFind(date);
+
+		return getWeatherOfDate(weatherList, dateToFind);
 	}
 
 	private Date getDateToFind(Date date) {

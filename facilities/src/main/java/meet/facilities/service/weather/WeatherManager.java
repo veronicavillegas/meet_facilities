@@ -15,6 +15,7 @@ import meet.facilities.client.response.Forecast;
 import meet.facilities.dto.Location;
 import meet.facilities.dto.Weather;
 import meet.facilities.util.Constant;
+import meet.facilities.util.Helper;
 
 @Service
 public class WeatherManager {
@@ -51,7 +52,7 @@ public class WeatherManager {
             weather.setMinTemp(item.getMain().getTemp_min());
             Date date;
             try {
-                date = new SimpleDateFormat(Constant.DATE_FORMAT).parse(item.getDt_txt());
+                date = Helper.parseToDate(item.getDt_txt());
             } catch (ParseException e) {
                 return;
             }
