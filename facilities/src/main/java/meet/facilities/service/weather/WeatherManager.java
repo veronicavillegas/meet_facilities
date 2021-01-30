@@ -28,15 +28,7 @@ public class WeatherManager {
     }
 
     public List<Weather> getWeather(Location location) throws IOException {
-        /*
-         * Forecast forecast = cacheService.getForecast(location);
-         * 
-         * if (forecast == null) { forecast = weatherClient.getForecast(location); }
-         * 
-         * if (forecast != null) { cacheService.saveForecast(location, forecast); }
-         */
         Forecast forecast = weatherClient.getForecast(location);
-
         return getWeatherList(forecast);
     }
 

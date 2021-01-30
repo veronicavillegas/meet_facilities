@@ -64,7 +64,6 @@ public class WeatherService {
 				}
 			}
 		}
-		
 		throw new NotFoundWeatherException("Forecast not found for given date");
 	}
 
