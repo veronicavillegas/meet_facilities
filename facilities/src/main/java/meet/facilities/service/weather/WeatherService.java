@@ -57,13 +57,17 @@ public class WeatherService {
 	}
 
 	private Weather getWeatherOfDate(List<Weather> weatherList, Date date) throws NotFoundWeatherException {
-		if (weatherList != null && weatherList.size() > 0) {
+		if (weatherList != null && weatherList.size() > 1) {
 			for(Weather weather : weatherList) {
 				if(weather.getDate().compareTo(date) == 0) {
 					return weather;
 				}
 			}
+		} else if(weatherList.size() == 1) {
+			//Si estoy en este caso es que la api está caída y me responde por Hystrix
+			return weatherList.get(0);
 		}
+		
 		throw new NotFoundWeatherException("Forecast not found for given date");
 	}
 

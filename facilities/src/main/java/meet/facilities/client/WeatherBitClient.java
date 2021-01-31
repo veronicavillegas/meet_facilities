@@ -1,6 +1,10 @@
 package meet.facilities.client;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.google.api.client.http.GenericUrl;
@@ -14,15 +18,20 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.Key;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import org.apache.http.HttpStatus;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.stereotype.Component;
 
 import meet.facilities.client.response.Forecast;
+import meet.facilities.client.response.Temperature;
 import meet.facilities.dto.Location;
 import meet.facilities.dto.Weather;
+import meet.facilities.util.Constant;
 
+@DefaultProperties(defaultFallback="fallback")
 @Component
 public class WeatherBitClient {
     private static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -32,7 +41,7 @@ public class WeatherBitClient {
     private final int READ_TIMEOUT = 8000;
     private final int NUMBER_OF_RETRIES = 3;
 
-    // TODO: HISTRIX
+    @HystrixCommand(fallbackMethod = "weatherFallback")
     public Forecast getForecast(Location location) throws IOException {
         String url = "https://community-open-weather-map.p.rapidapi.com/forecast?units=metric&";
         String query = "q=" + location.getCity() + "," + location.getCountry();
@@ -49,6 +58,25 @@ public class WeatherBitClient {
         } else {
             return (Forecast)response.parseAs(Forecast.class);
         }
+    }
+
+    private Forecast weatherFallback(Location location) {
+        Temperature main = new Temperature();
+        main.setTemp_max(Constant.MAX_TEMP);
+
+        meet.facilities.client.response.Weather weather = new meet.facilities.client.response.Weather();
+        weather.setMain(main);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        weather.setDt_txt(LocalDateTime.now().format(formatter));
+
+        List<meet.facilities.client.response.Weather> forecastList = new ArrayList<>();
+        forecastList.add(weather);
+
+        Forecast forecast = new Forecast();
+        forecast.setList(forecastList);
+
+        return forecast;
     }
 
     private HttpHeaders getHeaders() {

@@ -9,7 +9,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import meet.facilities.exception.ApiException;
-import meet.facilities.service.TokenValidatorService;
 import meet.facilities.util.Constant;
 
 @Component
