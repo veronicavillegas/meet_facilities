@@ -1,9 +1,11 @@
 # Meet facilities
 [Documento Funcional] (https://docs.google.com/document/d/1U0OqnWIwEQlvJsDnV7UuBiXoW8u9qiDIQhCDoPpm0CQ/edit?usp=sharing)
 
+* Proyecto en java 8 con Spring
+
 ## ¿Qué hace?
 * Calculo la cantidad de cajas de cervezas que necesitás para tu meetup según la cantidad de asistentes el clima para ese día y las cervezas por caja.
-* Doy el pronóstico para una fecha específica.
+* Proveo el pronóstico para una fecha específica.
 
 ## ¿Qué no hace?
 * No calculo cajas de cerveza ni el clima en fechas anteriores a la actual.
@@ -21,4 +23,5 @@
 * Por cuestiones de tiempo, no estoy validando match entre city y country.
 * La fecha y hora para pedir el pronostico o calcular cervezas debe ser superior a la actual
 * Circuit breaker: Con Hystrix.
+* Unit tests con JUnit.
 * Link documentación [Documentacion](http://localhost:8080/swagger-ui.html)
