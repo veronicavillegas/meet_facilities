@@ -1,4 +1,7 @@
 package meet.facilities.model;
+
+import java.util.Date;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -15,4 +18,5 @@ import lombok.experimental.Builder;
 public class Weather {
     private int minTemp;
     private int maxTemp;
+    private Date date;
 }

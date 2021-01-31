@@ -8,7 +8,7 @@ public final class Constant {
 	public static final double BEERS_WARM_DAY = 1.0;
 	public static final double BEERS_HOT_DAY = 2.0;
 	
-	public static final String DATE_FORMAT = "yyyy-mm-dd HH:mm:ss";
+	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	public static final String INVALID_USER_EMAIL_MESSAGE = "Given email user is not valid";
 	public static final String INVALID_CITY_MESSAGE = "Given city is not valid";
@@ -22,4 +22,5 @@ public final class Constant {
 	public static final String INVALID_TOKEN = "Invalid token";
 	public static final String MEET_BEER_URL = "/meetup/beers";
 	public static final String CALCULATE_BEER_METHOD = "calculateBeer";
+	public static final String DOC_URL = "/swagger-ui.html";
 }

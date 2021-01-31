@@ -36,8 +36,8 @@ public class WeatherBitClient {
     private static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static JsonFactory JSON_FACTORY = new JacksonFactory();
 
-    private final int CONNECTION_TIMEOUT = 8000;
-    private final int READ_TIMEOUT = 8000;
+    private final int CONNECTION_TIMEOUT = 10000;
+    private final int READ_TIMEOUT = 10000;
     private final int NUMBER_OF_RETRIES = 3;
 
     @HystrixCommand(fallbackMethod = "weatherFallback")

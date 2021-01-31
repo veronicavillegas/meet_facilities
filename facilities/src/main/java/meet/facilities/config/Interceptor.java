@@ -17,6 +17,9 @@ public class Interceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest requestServlet, HttpServletResponse responseServlet, Object handler) {
         String token = requestServlet.getHeader(Constant.AUTH_HEADER);
+        if(requestServlet.getRequestURI().contains("swagger")) {
+            return true;
+        }
         checkIsUserOrAdmin(token);
         checkIsAdminToAskForBeers(requestServlet, (HandlerMethod)handler, token);
         
