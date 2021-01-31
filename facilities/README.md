@@ -1,5 +1,5 @@
 # Meet facilities
-(Documento Funcional) https://docs.google.com/document/d/1U0OqnWIwEQlvJsDnV7UuBiXoW8u9qiDIQhCDoPpm0CQ/edit?usp=sharing
+[Documento Funcional] (https://docs.google.com/document/d/1U0OqnWIwEQlvJsDnV7UuBiXoW8u9qiDIQhCDoPpm0CQ/edit?usp=sharing)
 
 ## ¿Qué hace?
 * Calculo la cantidad de cajas de cervezas que necesitás para tu meetup según la cantidad de asistentes el clima para ese día y las cervezas por caja.
@@ -20,4 +20,4 @@
 * Los asistentes tienen que ser 2 o más.
 * Por cuestiones de tiempo, no estoy validando match entre city y country.
 * La fecha y hora para pedir el pronostico o calcular cervezas debe ser superior a la actual
-* Circuit bracker: Usé Hystrix.
+* Circuit breaker: Con Hystrix.
