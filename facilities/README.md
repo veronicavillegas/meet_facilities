@@ -20,3 +20,4 @@
 * Los asistentes tienen que ser 2 o más.
 * Por cuestiones de tiempo, no estoy validando match entre city y country.
 * La fecha y hora para pedir el pronostico o calcular cervezas debe ser superior a la actual
+* Circuit bracker: Usé Hystrix.

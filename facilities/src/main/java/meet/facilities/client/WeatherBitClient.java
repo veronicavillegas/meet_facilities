@@ -31,7 +31,6 @@ import meet.facilities.dto.Location;
 import meet.facilities.dto.Weather;
 import meet.facilities.util.Constant;
 
-@DefaultProperties(defaultFallback="fallback")
 @Component
 public class WeatherBitClient {
     private static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
